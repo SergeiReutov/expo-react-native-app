@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Body, Text, Button, Title } from 'native-base';
-import { AntDesign } from '@expo/vector-icons';
+import { View } from 'react-native';
+import { Container, Content, Card, CardItem, Body, Text, Button, Icon } from 'native-base';
 import { PRODUCTS_LIST } from './__mocks__';
-import { productDetailsStyles } from '../../assets/styles/styles';
+import { commonStyles, productDetailsStyles } from '../../assets/styles';
 
 export default class ProductDetails extends Component {
   handleProductsListClick = () => {
     this.props.navigation.navigate('ProductsList');
+  };
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack();
   };
 
   render() {
@@ -16,29 +19,37 @@ export default class ProductDetails extends Component {
 
     return (
       <Container>
-        <Content>
-          <Card>
-            <CardItem header>
-              <AntDesign name={product.icon} size={30}/>
-              <Text style={productDetailsStyles.headerText}>
-                {product.name}
-              </Text>
-            </CardItem>
-            <CardItem>
-              <Body>
-                <Text>
-                  {product.description}
+        <Content contentContainerStyle={commonStyles.container}>
+          <View style={commonStyles.centralizedVerticalView}>
+
+            <Card>
+
+              <CardItem header>
+                <Icon type="Entypo" name={product.icon} size={30}/>
+                <Text style={productDetailsStyles.headerText}>
+                  {product.name}
                 </Text>
-              </Body>
-            </CardItem>
-            <CardItem footer>
-              <Button info onPress={this.handleProductsListClick}>
-                <Text style={productDetailsStyles.productsListButtonText}>
-                  All Products
-                </Text>
-              </Button>
-            </CardItem>
-          </Card>
+              </CardItem>
+
+              <CardItem>
+                <Body>
+                  <Text>
+                    {product.description}
+                  </Text>
+                </Body>
+              </CardItem>
+
+              <CardItem footer>
+                <Button info onPress={this.handleProductsListClick}>
+                  <Text style={commonStyles.buttonText}>
+                    All Products
+                  </Text>
+                </Button>
+              </CardItem>
+
+            </Card>
+
+          </View>
         </Content>
       </Container>
     );

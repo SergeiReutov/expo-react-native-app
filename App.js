@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Container } from 'native-base';
-import { AppLoading, Asset, Font } from 'expo';
+import { AppLoading, Font } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 
 export default class App extends React.Component {
@@ -19,11 +17,7 @@ export default class App extends React.Component {
         />
       );
     } else {
-      return (
-        <Container>
-          <AppNavigator />
-        </Container>
-      );
+      return <AppNavigator />;
     }
   }
 
