@@ -1,0 +1,70 @@
+{
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true,
+        "jest": true
+    },
+    "parser": "babel-eslint",
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react-native/all"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "react-native"
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-var": [
+            "error"
+        ],
+        "eqeqeq": [
+            "error"
+        ],
+        "no-unused-vars": [
+            "error"
+        ],
+        "comma-dangle": [
+            "error",
+            {
+                "arrays": "always-multiline",
+                "objects": "always-multiline",
+                "imports": "always-multiline",
+                "exports": "always-multiline",
+                "functions": "always-multiline"
+            }
+        ],
+        "react/prop-types": [
+            "error",
+            {
+                "ignore": ["navigation"]
+            }
+        ]
+    },
+    "globals": {
+        "fetch": true
+    }
+}

@@ -10,7 +10,7 @@ const AppStack = createStackNavigator(
     ProductDetails: ProductDetailsScreen,
   },
   {
-    headerMode: 'none'
+    headerMode: 'none',
   },
 );
 
@@ -19,7 +19,7 @@ const AuthStack = createStackNavigator(
     SignIn: SignInScreen,
   },
   {
-    headerMode: 'none'
+    headerMode: 'none',
   },
 );
 
