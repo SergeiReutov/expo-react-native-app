@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, AsyncStorage } from 'react-native';
 import { Content, Button, Item, Input, Container, Icon } from 'native-base';
-import { commonStyles, signInStyles } from '../assets/styles';
+import { commonStyles, signInStyles } from '~/assets/styles';
 
 export default class SignInScreen extends Component {
   handleLoginButtonClick = async () => {
@@ -13,14 +13,14 @@ export default class SignInScreen extends Component {
     return (
       <Container>
         <Content contentContainerStyle={commonStyles.container}>
-          <View style={[commonStyles.centralizedVerticalView, commonStyles.centralizedHorizontalView]}>
+          <View style={commonStyles.centralized}>
 
             <View>
               <Icon type="SimpleLineIcons" name="login" style={signInStyles.loginIcon} />
             </View>
 
             <View>
-              <Text style={signInStyles.headerText}>Friday's shop</Text>
+              <Text style={signInStyles.headerText}>Friday&apos;s shop</Text>
             </View>
 
             <View>

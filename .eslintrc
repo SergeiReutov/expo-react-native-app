@@ -24,7 +24,10 @@
     "rules": {
         "indent": [
             "error",
-            2
+            2,
+            {
+                "SwitchCase": 1
+            }
         ],
         "linebreak-style": [
             "error",
@@ -60,11 +63,33 @@
         "react/prop-types": [
             "error",
             {
-                "ignore": ["navigation"]
+                "ignore": [
+                    "navigation",
+                    "dispatch"
+                ]
+            }
+        ],
+        "eol-last": [
+            "error",
+            "always"
+        ],
+        "max-len": [
+            "error",
+            {
+                "code": 100
+            }
+        ],
+        "react-native/no-raw-text": [
+            "error",
+            {
+                "skip": [
+                    "Title"
+                ]
             }
         ]
     },
     "globals": {
-        "fetch": true
+        "fetch": true,
+        "__DEV__": false
     }
 }

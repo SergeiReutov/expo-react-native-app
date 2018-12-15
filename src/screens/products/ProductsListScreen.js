@@ -1,10 +1,31 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { AsyncStorage } from 'react-native';
-import { Container, Header, Content, List, ListItem, Text, Body, Title, Left, Right, Button, Icon } from 'native-base';
-import { commonStyles, productsListStyles } from '../../assets/styles';
-import { PRODUCTS_LIST } from './__mocks__';
+import {
+  Container,
+  Header,
+  Content,
+  List,
+  ListItem,
+  Text,
+  Body,
+  Title,
+  Left,
+  Right,
+  Button,
+  Icon,
+} from 'native-base';
+import { commonStyles, productsListStyles } from '~/assets/styles';
+import { fetchProducts } from '~/actions/products';
+import { getProductsList } from '~/selectors/products';
+import { ProductType } from '~/__types__';
 
-export default class ProductsListScreen extends Component {
+class ProductsListScreen extends Component {
+  componentDidMount() {
+    this.props.dispatch(fetchProducts());
+  }
+
   handleProductClick = productId => () => {
     this.props.navigation.navigate('ProductDetails', { productId });
   };
@@ -29,6 +50,7 @@ export default class ProductsListScreen extends Component {
   );
 
   render() {
+    const { productsList } = this.props;
     return (
       <Container>
         <Header>
@@ -46,10 +68,24 @@ export default class ProductsListScreen extends Component {
         </Header>
         <Content>
           <List>
-            {PRODUCTS_LIST.map(this.renderProduct)}
+            {productsList.map(this.renderProduct)}
           </List>
         </Content>
       </Container>
     );
   }
 }
+
+ProductsListScreen.propTypes = {
+  productsList: PropTypes.arrayOf(ProductType).isRequired,
+};
+
+ProductsListScreen.defaultProps = {
+  productsList: [],
+};
+
+const mapStateToProps = state => ({
+  productsList: getProductsList(state),
+});
+
+export default connect(mapStateToProps)(ProductsListScreen);

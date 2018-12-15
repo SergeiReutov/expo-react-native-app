@@ -1,8 +1,8 @@
 import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
-import AuthLoadingScreen from '../screens/AuthLoadingScreen';
-import SignInScreen from '../screens/SignInScreen';
-import ProductsListScreen from '../screens/products/ProductsListScreen';
-import ProductDetailsScreen from '../screens/products/ProductDetailsScreen';
+import AuthLoadingScreen from '~/screens/auth/AuthLoadingScreen';
+import SignInScreen from '~/screens/auth/SignInScreen';
+import ProductsListScreen from '~/screens/products/ProductsListScreen';
+import ProductDetailsScreen from '~/screens/products/ProductDetailsScreen';
 
 const AppStack = createStackNavigator(
   {

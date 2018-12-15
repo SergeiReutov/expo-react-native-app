@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { connect } from 'react-redux';
 import { Container, Content, Card, CardItem, Body, Text, Button, Icon } from 'native-base';
-import { PRODUCTS_LIST } from './__mocks__';
-import { commonStyles, productDetailsStyles } from '../../assets/styles';
+import { commonStyles, productDetailsStyles } from '~/assets/styles';
+import { getParamByName } from '~/selectors/navigation';
+import { getProductById } from '~/selectors/products';
+import { ProductType } from '~/__types__';
 
-export default class ProductDetails extends Component {
+class ProductDetails extends Component {
   handleProductsListClick = () => {
     this.props.navigation.navigate('ProductsList');
   };
@@ -14,8 +17,7 @@ export default class ProductDetails extends Component {
   };
 
   render() {
-    const { navigation: { state: { params: { productId } } } } = this.props;
-    const product = PRODUCTS_LIST.find(({ id }) => id === productId);
+    const { product } = this.props;
 
     return (
       <Container>
@@ -55,3 +57,17 @@ export default class ProductDetails extends Component {
     );
   }
 }
+
+ProductDetails.propTypes = {
+  product: ProductType.isRequired,
+};
+
+ProductDetails.defaultProps = {
+  product: {},
+};
+
+const mapStateToProps = (state, ownProps) => ({
+  product: getProductById(state, getParamByName(ownProps, 'productId')),
+});
+
+export default connect(mapStateToProps)(ProductDetails);

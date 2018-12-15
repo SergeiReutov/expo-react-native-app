@@ -1,3 +1,4 @@
+/*eslint max-len: ["error", { "code": 600 }]*/
 export const PRODUCTS_LIST = [
   {
     id: 1,

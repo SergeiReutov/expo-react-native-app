@@ -1,6 +1,9 @@
+// TODO: implement error logging
+/*eslint no-console: ["error", { allow: ["warn"] }] */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { AppLoading, Font } from 'expo';
-import AppNavigator from './navigation/AppNavigator';
+import AppNavigator from '~/navigation/AppNavigator';
 
 export default class App extends React.Component {
   state = {
@@ -40,3 +43,12 @@ export default class App extends React.Component {
     this.setState({ isLoadingComplete: true });
   };
 }
+
+App.propTypes = {
+  skipLoadingScreen: PropTypes.bool,
+};
+
+App.defaultProps = {
+  skipLoadingScreen: false,
+};
+

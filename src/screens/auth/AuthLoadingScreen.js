@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncStorage, View } from 'react-native';
 import { Container, Content, Spinner } from 'native-base';
-import { commonStyles } from '../assets/styles';
+import { commonStyles } from '~/assets/styles';
 
 export default class AuthLoadingScreen extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ export default class AuthLoadingScreen extends React.Component {
     return (
       <Container>
         <Content contentContainerStyle={commonStyles.container}>
-          <View style={[commonStyles.centralizedVerticalView, commonStyles.centralizedHorizontalView]}>
+          <View style={commonStyles.centralized}>
 
             <Spinner color='black' />
 
