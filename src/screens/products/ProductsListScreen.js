@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AsyncStorage } from 'react-native';
+import { SecureStore } from 'expo';
 import {
   Container,
   Header,
@@ -31,7 +31,7 @@ class ProductsListScreen extends Component {
   };
 
   handleLogoutButtonClick = async () => {
-    await AsyncStorage.clear();
+    await SecureStore.deleteItemAsync('userToken');
     this.props.navigation.navigate('Auth');
   };
 

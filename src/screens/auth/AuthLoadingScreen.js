@@ -1,5 +1,6 @@
 import React from 'react';
-import { AsyncStorage, View } from 'react-native';
+import { View } from 'react-native';
+import { SecureStore } from 'expo';
 import { Container, Content, Spinner } from 'native-base';
 import { commonStyles } from '~/assets/styles';
 
@@ -10,10 +11,8 @@ export default class AuthLoadingScreen extends React.Component {
   }
 
   _bootstrapAsync = async () => {
-    const userToken = await AsyncStorage.getItem('userToken');
-
-    // setTimeout to simulate loading userToken
-    setTimeout(() => this.props.navigation.navigate(userToken ? 'App' : 'Auth'), 1000);
+    const userToken = await SecureStore.getItemAsync('userToken');
+    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
   };
 
   render() {

@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AppLoading, Font } from 'expo';
 import AppNavigator from '~/navigation/AppNavigator';
+import NavigationService from '~/navigation/NavigationService';
 
 export default class App extends React.Component {
   state = {
@@ -20,7 +21,13 @@ export default class App extends React.Component {
         />
       );
     } else {
-      return <AppNavigator />;
+      return (
+        <AppNavigator
+          ref={navigatorRef => {
+            NavigationService.setTopLevelNavigator(navigatorRef);
+          }}
+        />
+      );
     }
   }
 
