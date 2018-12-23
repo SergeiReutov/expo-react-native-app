@@ -20,5 +20,6 @@ export const signInStyles = StyleSheet.create({
   },
   loginButtonView: {
     marginTop: 30,
+    width: '70%',
   },
 });
