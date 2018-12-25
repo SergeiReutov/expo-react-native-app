@@ -3,7 +3,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AppLoading, Font } from 'expo';
-import { Root } from 'native-base';
 import AppNavigator from '~/navigation/AppNavigator';
 import NavigationService from '~/navigation/NavigationService';
 
@@ -21,17 +20,14 @@ export default class App extends React.Component {
           onFinish={this._handleFinishLoading}
         />
       );
-    } else {
-      return (
-        <Root>
-          <AppNavigator
-            ref={navigatorRef => {
-              NavigationService.setTopLevelNavigator(navigatorRef);
-            }}
-          />
-        </Root>
-      );
     }
+    return (
+      <AppNavigator
+        ref={navigatorRef => {
+          NavigationService.setTopLevelNavigator(navigatorRef);
+        }}
+      />
+    );
   }
 
   _loadResourcesAsync = async () => {
