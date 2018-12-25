@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { KeepAwake, registerRootComponent } from 'expo';
+import { SafeAreaView } from 'react-native';
+import { commonStyles } from '~/assets/styles';
 import store from '~/store';
 import App from '~/App';
 
@@ -12,7 +14,9 @@ class ConnectedApp extends Component {
   render() {
     return (
       <Provider store={store}>
-        <App />
+        <SafeAreaView style={commonStyles.safeArea}>
+          <App />
+        </SafeAreaView>
       </Provider>
     );
   }

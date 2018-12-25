@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { white, black } from './theme';
+import { white, black, gray } from './theme';
 
 const centralizedVertical = {
   flex: 1,
@@ -12,6 +12,10 @@ const centralizedHorizontal = {
 };
 
 export const commonStyles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: gray,
+  },
   container: {
     flexGrow: 1,
   },
