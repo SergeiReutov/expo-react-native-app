@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as R from 'ramda';
 
 const API_BASE_URL = 'https://node.alexdolgov.ru';
 
@@ -9,15 +10,26 @@ const client = axios.create({
   },
 });
 
-export const GET = url => client.get(`${API_BASE_URL}${url}`);
+const createAPIRequest = (method, url, params) =>
+  client.request({
+    url,
+    method,
+    baseURL: API_BASE_URL,
+    data: params,
+  })
+    .then(response => response.data)
+    .catch(error => {
+      const serverGeneratedError = R.path(['response', 'data', 'message'], error);
+      if (serverGeneratedError) {
+        throw new Error(error.response.data.message);
+      }
+      throw new Error(error);
+    });
 
-// TODO: refactor response handling to one generic function
-export const POST = (url, params) => client.post(`${API_BASE_URL}${url}`, params)
-  .then(response => response.data)
-  .catch(error => {
-    throw new Error(error.response.data.message);
-  });
+export const GET = url => createAPIRequest('get', url);
 
-export const PUT = (url, params) => client.put(`${API_BASE_URL}${url}`, params);
+export const POST = (url, params) => createAPIRequest('post', url, params);
 
-export const DELETE = url => client.post(`${API_BASE_URL}${url}`);
+export const PUT = (url, params) => createAPIRequest('put', url, params);
+
+export const DELETE = url => createAPIRequest('delete', url);
