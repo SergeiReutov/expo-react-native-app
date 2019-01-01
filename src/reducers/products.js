@@ -13,6 +13,7 @@ export default function products(state = initialState, action) {
       return {
         ...state,
         isLoading: true,
+        error: initialState.error,
       };
     case PRODUCTS.FETCH.SUCCESS:
       return {
@@ -24,8 +25,13 @@ export default function products(state = initialState, action) {
     case PRODUCTS.FETCH.FAILURE:
       return {
         ...state,
-        error: action.error,
         isLoading: false,
+        error: action.error,
+      };
+    case PRODUCTS.ERROR.CLEAR:
+      return {
+        ...state,
+        error: initialState.error,
       };
     default:
       return state;

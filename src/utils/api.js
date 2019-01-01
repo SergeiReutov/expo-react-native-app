@@ -21,7 +21,7 @@ const createAPIRequest = (method, url, params) =>
     .catch(error => {
       const serverGeneratedError = R.path(['response', 'data', 'message'], error);
       if (serverGeneratedError) {
-        throw new Error(error.response.data.message);
+        throw new Error(serverGeneratedError);
       }
       throw new Error(error);
     });

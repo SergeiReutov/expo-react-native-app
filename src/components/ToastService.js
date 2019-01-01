@@ -11,8 +11,6 @@ function showToast(message) {
   );
 }
 
-const ToastService = {
+export const ToastService = {
   showToast,
 };
-
-export default ToastService;

@@ -1,6 +1,6 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
 import NavigationService from '~/navigation/NavigationService';
-import ToastService from '~/components/ToastService';
+import { ToastService } from '~/components';
 import { SecureStore } from 'expo';
 import { AUTH } from 'actions/ActionTypes';
 import { POST } from 'utils/api';

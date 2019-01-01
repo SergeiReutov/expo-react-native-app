@@ -1,15 +1,24 @@
-import { takeEvery, put/*, call */ } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
+import { takeEvery, put, call } from 'redux-saga/effects';
 import { PRODUCTS } from 'actions/ActionTypes';
 // import { GET } from 'utils/api';
-import { PRODUCTS_LIST } from './__mocks__';
+import { getProducts } from './__mocks__';
 
-function* fetchProducts() {
+function* fetchProducts({ startsFrom, amount }) {
   try {
     // TODO: call actual API
     // const response = yield call(GET, `/products`);
-    yield put({ type: PRODUCTS.FETCH.SUCCESS, productsList: PRODUCTS_LIST });
+    yield call(delay, 2000);
+    yield put({ type: PRODUCTS.FETCH.SUCCESS, productsList: getProducts(startsFrom, amount) });
   } catch (e) {
-    yield put({ type: PRODUCTS.FETCH.FAILURE, error: e.message });
+    yield put({ type: PRODUCTS.FETCH.FAILURE, error: {
+      message: e.message,
+      action: PRODUCTS.FETCH.REQUEST,
+      params: {
+        startsFrom,
+        amount,
+      },
+    }});
   }
 }
 

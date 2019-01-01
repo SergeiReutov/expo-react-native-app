@@ -15,15 +15,26 @@ import {
   Right,
   Button,
   Icon,
+  Spinner,
 } from 'native-base';
-import { commonStyles, productsListStyles } from '~/assets/styles';
-import { fetchProducts } from '~/actions/products';
-import { getProductsList } from '~/selectors/products';
-import { ProductType } from '~/__types__';
+import { ErrorModal, NoResults } from '~/components';
+import { commonStyles, productsListStyles, black } from '~/assets/styles';
+import { fetchProducts, clearError } from '~/actions/products';
+import { getProductsList, getIsLoading, getError } from '~/selectors/products';
+import { ProductType, ErrorType } from '~/__types__';
+
+const PAGE_SIZE = 20;
 
 class ProductsListScreen extends Component {
+  state = {
+    startsFrom: 0,
+  };
+
   componentDidMount() {
-    this.props.dispatch(fetchProducts());
+    this.props.dispatch(fetchProducts(
+      this.state.startsFrom,
+      PAGE_SIZE,
+    ));
   }
 
   handleProductClick = productId => () => {
@@ -34,6 +45,8 @@ class ProductsListScreen extends Component {
     await SecureStore.deleteItemAsync('userToken');
     this.props.navigation.navigate('Auth');
   };
+
+  handleErrorClear = () => this.props.dispatch(clearError());
 
   renderProduct = product => (
     <ListItem icon key={product.id} onPress={this.handleProductClick(product.id)}>
@@ -49,8 +62,19 @@ class ProductsListScreen extends Component {
     </ListItem>
   );
 
-  render() {
+  renderProductsList = () => {
     const { productsList } = this.props;
+    return productsList.length
+      ? (
+        <List>
+          {productsList.map(this.renderProduct)}
+        </List>
+      )
+      : <NoResults />;
+  }
+
+  render() {
+    const { isLoading, error } = this.props;
     return (
       <Container>
         <Header>
@@ -67,9 +91,11 @@ class ProductsListScreen extends Component {
           </Right>
         </Header>
         <Content>
-          <List>
-            {productsList.map(this.renderProduct)}
-          </List>
+          {isLoading
+            ? <Spinner color={black} />
+            : this.renderProductsList()
+          }
+          {error !== null && <ErrorModal error={error} onClose={this.handleErrorClear} />}
         </Content>
       </Container>
     );
@@ -78,6 +104,8 @@ class ProductsListScreen extends Component {
 
 ProductsListScreen.propTypes = {
   productsList: PropTypes.arrayOf(ProductType).isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  error: ErrorType,
 };
 
 ProductsListScreen.defaultProps = {
@@ -86,6 +114,8 @@ ProductsListScreen.defaultProps = {
 
 const mapStateToProps = state => ({
   productsList: getProductsList(state),
+  isLoading: getIsLoading(state),
+  error: getError(state),
 });
 
 export default connect(mapStateToProps)(ProductsListScreen);
